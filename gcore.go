@@ -57,6 +57,15 @@ func (g *Gcore) AddRoute(path string, f http.HandlerFunc, d ...httpHandlerDecora
 	g.router.HandleFunc(path, useHandlers(f, decorators))
 }
 
+func (g *Gcore) NotFoundHandler(f http.HandlerFunc, d ...httpHandlerDecorator) {
+	var decorators []httpHandlerDecorator
+
+	decorators = append(decorators, d...)
+	decorators = append(decorators, g.decorators...)
+
+	g.router.NotFoundHandler = useHandlers(f, decorators)
+}
+
 func (g *Gcore) Boot() {
 	srv := &http.Server{
 		Handler:        g.router,

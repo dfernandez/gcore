@@ -28,7 +28,6 @@ func (tpl Controller) Render(w http.ResponseWriter, r *http.Request, tplVars int
 
     t := template.Must(template.New("").Funcs(funcMap).ParseFiles("src/templates/" + tpl.Layout, "src/templates/" + tpl.Template))
 
-    tpl.Title      = "Go web!"
     tpl.TplVars    = tplVars
     tpl.Controller = r.URL.Path
 
